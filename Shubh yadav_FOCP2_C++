@@ -1,67 +1,120 @@
 FOCP II - Assignment 1
-Q1
-#include <iostream>
+
+Q1. Number manupulation and prime numbers.
+
+#include<iostream>
 using namespace std;
 
-bool isPrime(int num) {
-    if (num < 2) return false;
-    for (int i = 2; i * i <= num; i++)
-        if (num % i == 0) return false;
-    return true;
+int prime(int num)
+{
+    for(int i=2;i*i<=num;i++)
+    {
+        if(num%i==0)
+        {
+            return 0;
+        }
+    }
+    return 1;
 }
 
-int nextPrime(int num) {
-    while (!isPrime(++num));
+int next_prime(int num)
+{
+    num++;
+    while(!prime(num))
+    {
+        num++;
+    }
     return num;
+
 }
-
-int main() {
-    int n;
-    cout << "Enter a positive integer: ";
-    cin >> n;
-
-    if (isPrime(n)) {
-        cout << n << " is a prime number.\n";
-        cout << "Next prime number is: " << nextPrime(n) << endl;
-    } else {
-        cout << n << " is not a prime number.\nFactors: ";
-        for (int i = 1; i <= n; i++)
-            if (n % i == 0) cout << i << " ";
-        cout << endl;
+void factors(int num)
+{
+    cout<<"Factors of "<<num<<" are: ";
+    for(int i=1;i*i<=num;i++)
+    {
+        if(num%i==0)
+        {
+            cout<<i<<" ";
+        }
+        if(i!=num/i)
+        cout<<num/i<<" ";
     }
-    
+            cout<<endl;
+}
+int main()
+{
+    int n;
+    cout<<"Enter a positive number: ";
+    cin>>n;
+
+    if(n<=0)
+    cout<<"Please enter a positive number.";
+
+        if(prime(n))
+        {
+            cout<<"It is a prime number"<<endl;
+            cout<<"Next prime number is: "<<next_prime(n)<<endl;
+        }
+        else
+        {
+            cout<<"It is not a prime number"<<endl;
+            factors(n);
+        }
     return 0;
 }
-Q2
+
+Q2 Array Operations
+
 #include <iostream>
-#include <algorithm>
 using namespace std;
 
-int main() {
-    int size;
-    cout << "Enter size of array: ";
-    cin >> size;
-    
-    if (size < 2) {
-        cout << "Size must be at least 2.";
-        return 0;
+void reverse(int a[],int n)
+{
+    int i;
+    for(i=n-1;i>=0;--i)
+    {
+        cout<<a[i]<<endl;
     }
-
-    int arr[size];
-    cout << "Enter " << size << " elements: ";
-    for (int i = 0; i < size; i++) cin >> arr[i];
-
-    cout << "Reversed Array: ";
-    for (int i = size - 1; i >= 0; i--) cout << arr[i] << " ";
-    cout << endl;
-
-    sort(arr, arr + size);
-    cout << "Second Smallest: " << arr[1] << ", Second Largest: " << arr[size - 2] << endl;
-
-    return 0;
+    
 }
-Q3
-Q4
+void findanddisplay(int a[],int n)
+{
+    int i,t,j;
+    for(i=0;i<n-1;i++)
+    {
+        for(j=0;j<n-1-i;j++)
+        {
+            if(a[j]>a[j+1])
+            {
+                t=a[j];
+                a[j]=a[j+1];
+                a[j+1]=t;
+            }
+        }
+    }
+cout<<"second smallest: "<<a[1]<<endl;
+cout<<"second largest: "<<a[n-2];
+}
+int main()
+{
+	int a[10],n,i;
+	cout<<"Enter size of array";
+	cin>>n;
+	cout<<"Enter N Nos"<<endl;
+	for(i=0;i<n;i++)
+	{
+		cin>>a[i];
+    }  
+    cout<<"Reverse array   :   "<<endl;
+    reverse(a,n);
+    findanddisplay(a,n);    
+}
+
+Q3 String Manipulation
+
+
+Q4 Spiral Number Pattern
+
 #include <iostream>
 using namespace std;
 
@@ -69,13 +122,17 @@ void spiralPattern(int n) {
     int arr[n][n], val = 1, top = 0, left = 0, bottom = n - 1, right = n - 1;
 
     while (val <= n * n) {
-        for (int i = left; i <= right; i++) arr[top][i] = val++;
+        for (int i = left; i <= right; i++) 
+        arr[top][i] = val++;
         top++;
-        for (int i = top; i <= bottom; i++) arr[i][right] = val++;
+        for (int i = top; i <= bottom; i++) 
+        arr[i][right] = val++;
         right--;
-        for (int i = right; i >= left; i--) arr[bottom][i] = val++;
+        for (int i = right; i >= left; i--)
+        arr[bottom][i] = val++;
         bottom--;
-        for (int i = bottom; i >= top; i--) arr[i][left] = val++;
+        for (int i = bottom; i >= top; i--) 
+        arr[i][left] = val++;
         left++;
     }
 
@@ -92,30 +149,40 @@ int main() {
     spiralPattern(n);
     return 0;
 }
-Q5
-#include <iostream>
+
+Q5 Rotate Matrics 90 Degree
+
+#include<iostream>
 using namespace std;
-
-void rotate90(int n, int arr[][100]) {
-    for (int i = 0; i < n; i++) {
-        for (int j = n - 1; j >= 0; j--) 
-            cout << arr[j][i] << " ";
-        cout << endl;
+int main()
+{
+    int m,n;
+    cout<<"Enter the number of rows and columns: "<<endl;
+    cin>>m>>n;
+    int arr[m][n];
+    cout<<"Enter the elements in the array"<<endl;
+    for(int r=0;r<m;r++)
+    {
+        for(int c=0;c<n;c++)
+        {
+            cin>>arr[r][c];   
+        }
     }
-}
-
-int main() {
-    int n, arr[100][100];
-    cout << "Enter size of matrix: ";
-    cin >> n;
-
-    cout << "Enter matrix elements:\n";
-    for (int i = 0; i < n; i++)
-        for (int j = 0; j < n; j++)
-            cin >> arr[i][j];
-
-    cout << "Rotated Matrix:\n";
-    rotate90(n, arr);
-
-    return 0;
+    for(int r=0;r<m;r++)
+    {
+        for(int c=0;c<n;c++)
+        {
+            cout<<arr[r][c]<<" ";   
+        }
+        cout<<endl;
+    }
+    cout<<"\nRotated matrix: "<<endl;
+    for(int c=0;c<n;c++)
+    {
+        for(int r=m-1;r>=0;r--)
+        {
+            cout<<arr[r][c]<<" ";
+        }
+        cout<<endl;
+    }
 }
